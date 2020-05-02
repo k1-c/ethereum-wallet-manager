@@ -1,0 +1,27 @@
+version: '3'
+services:
+  ganache:
+    image: trufflesuite/ganache-cli
+    command: -m
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis:/data
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_CREATE_TOPICS: "command:1:1,address.created:1:1,transaction:1:1,errors:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+volumes:
+  redis:
