@@ -1,4 +1,4 @@
-# Etheream Wallet Manager
+# Ethereum Wallet Manager
 
 # installation
 ```
